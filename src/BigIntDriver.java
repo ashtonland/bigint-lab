@@ -25,5 +25,9 @@ public class BigIntDriver {
 
         System.out.println(num1);
         System.out.println(num2);
+
+        BigInt BigInteger = new BigInt(num1, num2);
+        BigInteger.addNums();
+        System.out.println(BigInteger.getAnswer());
     }
 }
