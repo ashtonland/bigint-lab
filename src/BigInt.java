@@ -64,6 +64,10 @@ public class BigInt {
 
             answer.add(0, digitSum);
         }
+        //remove leading zeros
+        while ((Integer)answer.get(0) == 0){
+            answer.remove(0);
+        }
     }
     // calculates the difference of the two #’s.
     public void subNums(){
