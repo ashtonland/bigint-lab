@@ -71,8 +71,9 @@ public class BigInt {
         ArrayList<Integer> largerNum = new ArrayList<>();
         ArrayList<Integer> smallerNum = new ArrayList<>();
 
-        //interate through leading zeros until finding actual start to determine which is larger...either by
+        //iterate through leading zeros until finding actual start to determine which is larger...either by
         //first digit place, or if both start in same place, then by numerical comparison of the start digits.
+        int multiplier = 1; //if we flip the numbers, we need to negate the result
         int d1;
         int d2;
         int m = 0;
@@ -88,6 +89,7 @@ public class BigInt {
             } else if (d2 > 0 && d1 == 0){
                 largerNum = number2;
                 smallerNum = number1;
+                multiplier = -1;
                 stop = true;
             } else if (d1 > d2) {
                 largerNum = number1;
@@ -96,6 +98,7 @@ public class BigInt {
             } else if (d2 > d1) {
                 largerNum = number2;
                 smallerNum = number1;
+                multiplier = -1;
                 stop = true;
             }
             m++;
@@ -106,12 +109,10 @@ public class BigInt {
         int n2;
         int digitDif;
         int length = number1.size();
-        int nextPos;
-        int nextDigitPart;
 
         for (int i = length-1; i >= 0; i--) {
-            n1 = (Integer)largerNum.get(i);
-            n2 = (Integer)smallerNum.get(i);
+            n1 = largerNum.get(i);
+            n2 = smallerNum.get(i);
 
             //if we need to carry, bc difference will be negative...if possible
             if (n2 > n1 && i > 0){
@@ -140,6 +141,14 @@ public class BigInt {
 
             answer.add(0, digitDif);
         }
+
+        //remove leading zeros
+        while ((Integer)answer.get(0) == 0){
+            answer.remove(0);
+        }
+
+        //make first real digit of answer negative if answer should be negative
+        answer.set(0, (Integer)answer.get(0) * multiplier);
     }
 
     // returns the answer for printing.
