@@ -35,6 +35,6 @@ public class BigInt {
 
     // returns the answer for printing.
     public ArrayList getAnswer(){
-
+        return answer;
     }
 }
