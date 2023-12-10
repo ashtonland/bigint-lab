@@ -23,11 +23,27 @@ public class BigIntDriver {
             }
         }
 
-        System.out.println(num1);
-        System.out.println(num2);
-
         BigInt BigInteger = new BigInt(num1, num2);
-        BigInteger.subNums();
-        System.out.println(BigInteger.getAnswer());
+
+        System.out.println("Would you like to A)dd or S)ubtract");
+        input = fina.nextLine();
+        while (!input.equalsIgnoreCase("a") && !input.equalsIgnoreCase("s")){
+            System.out.println("Invalid input, enter either A or S to select");
+            input = fina.nextLine();
+        }
+
+        if (input.equalsIgnoreCase("a")) {
+            BigInteger.addNums();
+            System.out.print("The sum is: ");
+        }else {
+            BigInteger.subNums();
+            System.out.print("The difference is: ");
+        }
+
+        for (Object digit : BigInteger.getAnswer()){
+            System.out.print(digit);
+        }
+
+        BigInteger.clearArraylist();
     }
 }
