@@ -68,8 +68,8 @@ public class BigInt {
     // calculates the difference of the two #’s.
     public void subNums(){
         //subtraction needs larger num to be on top, so reassign as necessary
-        ArrayList<Integer> largerNum;
-        ArrayList<Integer> smallerNum;
+        ArrayList<Integer> largerNum = new ArrayList<>();
+        ArrayList<Integer> smallerNum = new ArrayList<>();
 
         //interate through leading zeros until finding actual start to determine which is larger...either by
         //first digit place, or if both start in same place, then by numerical comparison of the start digits.
@@ -104,7 +104,6 @@ public class BigInt {
 
         int n1;
         int n2;
-        int carry;
         int digitDif;
         int length = number1.size();
         int nextPos;
@@ -114,24 +113,30 @@ public class BigInt {
             n1 = (Integer)largerNum.get(i);
             n2 = (Integer)smallerNum.get(i);
 
-            carry = 0;
             //if we need to carry, bc difference will be negative...if possible
             if (n2 > n1 && i > 0){
+                //find next digit to take 10 away from (move on to next if zero)
                 int nonZeroIndex = i-1;
-                while (largerNum.get(nonZeroIndex) )
+                while (nonZeroIndex > 0 && largerNum.get(nonZeroIndex) == 0){
+                    nonZeroIndex -= 1;
+                }
+
+                //either all above digits are zero or:
+                //we found it, now lets go backwards setting all zeros to 9 on the way back to i
+                boolean found = largerNum.get(nonZeroIndex) > 0;
+                if (found){
+                    largerNum.set(nonZeroIndex, largerNum.get(nonZeroIndex) - 1);
+                    int zerosIndex = nonZeroIndex + 1;
+                    //then set all zeros to 9
+                    while (zerosIndex < i){
+                        largerNum.set(zerosIndex, 9);
+                        zerosIndex++;
+                    }
+
+                    n1 += 10;
+                }
             }
             digitDif = n1 - n2;
-
-            //if carry over, ie 9+3 = 12, so keep 2 in this place, add 1 to higher place
-            if (digitDif > 9){
-                nextPos = i-1;
-                if (nextPos < 0)
-                    nextPos = 0;
-
-                nextDigitPart = (Integer)number1.get(nextPos);
-                number1.set(nextPos, nextDigitPart + 1);
-                digitDif -= 10;
-            }
 
             answer.add(0, digitDif);
         }
