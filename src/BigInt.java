@@ -1,9 +1,9 @@
 import java.util.*;
 
 public class BigInt {
-    ArrayList number1;
-    ArrayList number2;
-    ArrayList answer;
+    private ArrayList number1;
+    private ArrayList number2;
+    private ArrayList answer;
 
     //the constructor
     public BigInt(ArrayList<Integer> list1, ArrayList<Integer> list2){
